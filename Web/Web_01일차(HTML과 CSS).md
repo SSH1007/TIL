@@ -102,6 +102,19 @@
   
   - 실제  화면 구성과 관련된 내용
 
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+</head>
+<body>
+
+</body>
+</html>
+```
+
 > ### head 예시
 
 - 〈title> : 브라우저 상단 타이틀
@@ -154,15 +167,16 @@
 
 > ### 속성(attribute)
 
-\<a href="https://google.com"></a>
+```html
+<a href="https://google.com"></a>
+<!-- 속성명="속성값"-->
+```
 
 태그 별로 사용할 수 있는 속성은 다르다.
 
-- href는 속성명, **"** 구글 주소 **"** 는 속성값 (둘 사이에 공백 X)
+- href는 속성명, **"** 구글 주소 **"** 는 속성값 **(둘 사이에 공백 X)**
   
-  - 속성값은 쌍따옴표로 감싸줘야 한다.
-
-- 속성을 통해 태그의 부가적인 정보를 설정할 수 있음
+  - **속성값은 쌍따옴표로 감싸줘야 한다.**
 
 - 요소는 속성을 가질 수 있으며, 경로나 크기와 같은 추가적인 정보를 제공
 
@@ -208,15 +222,19 @@
 
 - Non semantic 요소는 div, span 등이 있으며 h1, table 태그들도 시맨틱 태그로 볼 수 있음
 
-- 개발자 및 사용자 뿐만 아니라 검색엔진 등에 의미 있는 정보의 그룹을 태그로 표현
-
-- 단순히 구역을 나누는 것 뿐만 아니라 '의미'를 가지는 태그들을 활용하기 위한 노력
-
-- 요소의 의미가 명확해지기 때문에 코드의 가독성을 높이고 유지 보수를 쉽게 함.
-
-- 검색 엔진 최적화(SEO)를 위해서 메타태그, 시맨틱 태그 등을 통한 마크업을 효과적으로 활용해야 함
+- 의미론적 마크업
+  
+  - 개발자 및 사용자 뿐만 아니라 검색엔진 등에 의미 있는 정보의 그룹을 태그로 표현
+  
+  - 단순히 구역을 나누는 것 뿐만 아니라 '의미'를 가지는 태그들을 활용하기 위한 노력
+  
+  - 요소의 의미가 명확해지기 때문에 코드의 가독성을 높이고 유지 보수를 쉽게 함.
+  
+  - 검색 엔진 최적화(SEO)를 위해서 메타태그, 시맨틱 태그 등을 통한 마크업을 효과적으로 활용해야 함
 
 - 렌더링은 웹사이트 코드를 사용자가 보게되는 웹 사이트로 바꾸는 과정 
+
+---
 
 > #### DOM(Document Object Model) 트리
 
@@ -227,6 +245,8 @@
   - HTML 문서 내의 각 요소에 접근 / 수정에 필요한 프로퍼티와 메서드를 제공함
 
 ---
+
+--- 
 
 > # HTML 문서 구조화
 
@@ -259,6 +279,10 @@
 | \<pre></pre>               | HTML에 작성한 내용을 그대로 표현<br/>보통 고정폭 글꼴이 사용되고 공백문자를 유지      |
 | \<blockquote></blockquote> | 텍스트가 긴 인용문<br/>주로 들여쓰기를 한 것으로 표현됨                      |
 | \<div></div>               | 의미 없는 블록 레벨 컨테이너                                       |
+
+--- 
+
+---
 
 > ### form
 
@@ -297,6 +321,13 @@
   - label과 input 입력의 관계가 시각적 뿐만 아니라 화면 리더기에서도 label을 읽어 쉽게 내용을 확인 할 수 있도록 함
 
 - \<input>에 id 속성을, \<label>에는 for 속성을 활용하여 상호 연관을 시킴
+
+```html
+<label for="agreement">개인정보 수집에 동의합니다.</label>
+<input type="checkbox" name="agreement" id="agreement">
+```
+
+---
 
 > #### input 유형 - 일반
 
@@ -351,7 +382,7 @@
 - 선택하고, 스타일을 지정한다.
 
 ```css
-h1 {  # 선택
+h1 {  # 선택자.
     color: blue;
     font-size: 15px;
 }
@@ -435,16 +466,20 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
 - 요소 선택자
   
   - HTML 태그를 직접 선택
+  - 가장 큰 범위
 
 - 클래스(class) 선택자
   
-  - 마침표(.) 문자로 시작하며, 해당 클래스가 적용된 항목을 선택
+  - **마침표(.) 문자로 시작**하며, 해당 클래스가 적용된 항목을 선택
+  - 중간 범위
 
 - 아이디(id) 선택자
   
-  - \# 문자로 시작하며, 해당 아이디가 적용된 항목을 선택
+  - **\# 문자로 시작하며**, 해당 아이디가 적용된 항목을 선택
   
   - 일반적으로 하나의 문서에 1번만 사용. 여러 번 사용해도 동작하지만, 단일 id를 사용하는 것을 권장
+  
+  - 가장 작은 범위
 
 > ##### CSS 적용 우선순위(cascading order)
 
@@ -452,13 +487,15 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
   
   1. 중요도(Importance) - 사용시 주의
      
-     - !important
+     - !important : 어디에 있든 최강
   
-  2- 우선 순위(Specificity)
-  
+  2. 우선 순위(Specificity)
   - 인라인 > id  > class, 속성, pseudo-class > 요소, pseudo-element
+  3. CSS 파일 로딩 순서
   
-  3- CSS 파일 로딩 순서
+  #### <span style="color:lime">※ 우선순위는 범위가 좁을 수록 강하다!</span>
+  
+  <span style="color:lightgreen">**등급이 같다면 더 나중에 정의된 놈이 강하다.**</span>
 
 > ##### CSS 상속
 
@@ -475,6 +512,8 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
     - Box model 관련 요소(width, height, margin, padding, border, box-sizing, display)
     
     - position 관련 요소(position, top/right/bottom/left, z-index ) 등
+
+---
 
 ---
 
@@ -566,19 +605,27 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
 
 > ### 결합자
 
-- 자손 결합자
+- **자손 결합자**
+  
+  - div span : div 안의 모든 span 태그
   
   - selectorA 하위의 모든 selectorB 요소
 
-- 자식 결합자
+- **자식 결합자**  
+  
+  - div > span
   
   - selectorA 바로 아래의 selectorB 요소
 
 - 일반 형제 결합자
   
+  - p \~ span 
+  
   - selectorA의 형제 요소 중 뒤에 위치하는 selectorB 요소를 모두 선택
 
 - 인접 형제 결합자
+  
+  - p + span
   
   - selectorA의 형제 요소 중 바로 뒤에 위치하는 selectorB 요소를 선택
 
@@ -731,7 +778,7 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
     
     - 요소가 브라우저 기준으로 위치해야 할 때
   
-  - sticky : 스크롤에 따라 statci -> fixed로 변경
+  - sticky : 스크롤에 따라 static -> fixed로 변경
     
     - 속성을 적용한 박스는 평소에 문서 안에서 position : static 상태와 같이 일반적인 흐름에 따르지만 스크롤 위치가 임계점에 이르면 position : fixed와 같이 박스를 화면에 고정할 수 있는 속성   
 
