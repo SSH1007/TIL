@@ -58,13 +58,13 @@
 
 > ## HTML
 
-- **<span style="color:red":>Hyper Text</span>** Markup Language
+- **<span style="color:red">Hyper Text</span>** Markup Language
   
   - 참조(하이퍼 링크)를 통해 사용자가 한 문서에서 다른 문서로 즉시 접근할 수 있는 텍스트
   
   - 비선형적으로 이루어진 텍스트
 
-- **Hyper Text <span style="color:red":>Markup Language</span>** 
+- **Hyper Text <span style="color:red">Markup Language</span>** 
   
   - 태그 등을 이용하여 문서나 데이터의 구조를 명시하는 언어
   
@@ -308,9 +308,18 @@
   
   - name : form control에 적용되는 이름 (이름/값 페어로 전송됨)
   
-  - value : form control에 적용되는 값 (이름/값 페어로 전송됨)
+  - value : form control에 적용되는 기본값 (이름/값 페어로 전송됨)
   
   - required, readonly, autofocus, autocomplete, disabled 등
+
+```html
+<form>
+  <input type="text" name="seoul4" value ="haha">
+  <input type="submit">
+</form>
+<!-- haha가 기본값으로 나와 있는 입력창에 
+  입력 뒤 제출 버튼을 누르면 seoul4 변수에 그 값이 들어가 전송된다. -->
+```
 
 > ##### input label
 
@@ -425,6 +434,8 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
 > ### CSS with 개발자 도구
 
 - styles : 해당 요소에 선언된 모든 CSS
+  
+  - 우선순위에 밀려 적용되지 않는 스타일은 취소선이 그어져 있음
 
 - computed : 해당 요소에 최종 계산된 CSS
 
@@ -539,7 +550,7 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
   
   - 배수 단위, 요소에 지정된 사이즈에 상대적인 사이즈를 가짐
 
-- rem
+- rem(root em)
   
   - (바로 위, 부모 요소에 대한) 상속의 영향을 받지 않음
   
@@ -555,7 +566,7 @@ h1 : 선택자 , color: blue; : 선언 , font-size : 속성 , 15px : 값
 
 - px는 브라우저의 크기를 변경해도 그대로
 
-- vw는 브라우저의 크기에 따라 크기가 변함
+- vw는 브라우저의 크기에 따라 크기가 변함(고무줄처럼 늘었다 줄었다 함)
 
 > #### 색상 단위
 
