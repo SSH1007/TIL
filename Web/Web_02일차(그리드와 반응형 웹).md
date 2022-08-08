@@ -377,3 +377,11 @@ bootstrap 검색 후, Docs 탭의 CDN via jsDelivr의 코드를 html에 붙여�
   - 12개의 column
   
   - 6개의 grid breakpoints
+
+-  사이즈 일람
+  
+  - xs, sm, md, lg, xl, xxl
+  
+  - col-3 : 사이즈가 xs에 해당할 경우, 3개분량의 그리드로 취급
+    
+    -  xs는 안 적어야 한다.
