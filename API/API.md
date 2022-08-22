@@ -19,5 +19,3 @@
 - movie/popular? : resource path
 
 - api_key=<<api_key>>&language=en-US&page=1 : parameter(query)
-
-
