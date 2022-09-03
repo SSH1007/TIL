@@ -13,9 +13,6 @@
 - 보안 등  
   을 제공하는 프레임워크 중 하나 (파이썬 기반 클래스 모음)
 
-
-
-
 ### ◆ 프레임워크(Framework)란?
 
 - 규격화된 웹서비스의 틀
@@ -26,8 +23,6 @@
 
 - 로직에만 집중할 수 있게 해주므로, 소프트웨어의 생산성과 품질을 높임
 
-
-
 ### ◆ 장고 사용 이점
 
 - 파이썬 프레임워크 : 거대한 커뮤니티
@@ -37,7 +32,6 @@
 - 검증된 웹 프레임워크임
   
   - 화해, Toss, 두나무, 당근마켓, 요기요, 인스타그램 등
-    
 
 ---
 
@@ -95,8 +89,6 @@
 
 - 커뮤니케이션의 효율성을 높임
 
-
-
 ### ◆ :boom:MTV 패턴:boom:
 
 - 장고의 디자인 패턴으로, MVC 디자인 패턴을 조금 변형한 패턴
@@ -143,8 +135,6 @@
   
   - 모델의 데이터를 받아와서 가공한 뒤, 템플릿에 반환한다.
 
-
-
 ---
 
 ---
@@ -183,8 +173,6 @@
   
   - ctrl + c로 서버에서 나갈 수 있음
 
-
-
 #### ◈ 프로젝트의 구조
 
 - `__init__.py` : 파이썬에게 이 디렉토리를 하나의 파이썬 패키지로 다루도록 지시
@@ -202,8 +190,6 @@
   - 장고 애플리케이션이 웹서버와 연결 및 소통하는 것을 도움
 
 - `manage.py` : 명령어들 모음
-
-
 
 ## ◆ 프로젝트 & 애플리케이션 생성
 
@@ -233,8 +219,6 @@
 
 - `views.py` : view 함수들이 정의되는 곳
 
-
-
 ※ 프로젝트에서 앱을 사용하기 위해서는 반드시 INSTALLED_APPS 리스트에 반드시 추가해 줘야 함
 
 - **반드시 생성 후 등록할 것**
@@ -242,8 +226,6 @@
 <img title="" src="Django_assets/2022-08-30-10-33-51-image.png" alt="" data-align="inline">(리스트 형식:  ',' 빼먹지 않도록 유의)
 
 우리가 만든 앱을 위에, 서드파티, 내장을 아래에
-
-
 
 ---
 
@@ -277,8 +259,6 @@
     
     - context : 템플릿에서 사용할 데이터(딕셔너리 타입)
 
-
-
 - ### Templates
 
 ![](Django_assets/2022-08-30-10-55-57-image.png)
@@ -287,23 +267,17 @@
 
 - `<a href = '/index/'>처음으로</a>` 같이 하이퍼링크도 넣을 수 있음
 
-
-
 # 코드 작성 순서
 
 - `데이터의 흐름 순서`
 
 ![](Django_assets/2022-08-30-10-56-34-image.png)
 
-
-
 ### ※ 추가 설정 (settings.py)
 
 - LANGUAGE_CODE를 바꾸는 것으로 번역 변경 가능(한글은 'ko-kr')
 
 - TIME_ZONE을 바꾸는 것으로 시간대 변경(서울은 'Asia/Seoul')
-
-
 
 ---
 
@@ -383,8 +357,6 @@
    
    - 여러줄 주석은 `{% comment %}`와 `{% endcomment %}` 사이에 입력
 
-
-
 ---
 
 ## ◆ 템플릿 상속
@@ -411,8 +383,6 @@
 
 - settings.py의 TEMPLATES 영역에 `'DIRS' : [BASE_DIR / 'templates',],`로 변경
 
-
-
 ---
 
 ## ◆ Sending and Retrieving from data
@@ -433,7 +403,7 @@
 
 - 데이터를 어디(action)로 어떤 방식(method)으로 보낼지
   
-  1.  action
+  1. action
      
      - 입력 데이터가 전송될 URL 지정(반드시 유효한 URL)
      
@@ -442,8 +412,6 @@
   2. method
      
      - 입력 데이터의 HTTP request methods 지정(Get과 Post)
-
-
 
 ▶ HTML \<input> element
 
@@ -457,8 +425,6 @@
   
   - GET 방식에선 `?key=value&key=value/` 형식으로 데이터를 전달
 
-
-
 ▶ HTTP request methods
 
 - HTTP : HTML 문서와 같은 리소스(데이터, 자원)들을 가져올 수 있도록 해주는 프로토콜(규칙, 규약)
@@ -468,8 +434,6 @@
 - HTTP는 주어진 리소스가 수행할 원하는 작업을 나타내는 request methods를 정의
   
   - GET, POST, PUT, DELETE 등
-
-
 
 ▶ GET
 
@@ -485,8 +449,6 @@
   
   - `http://host:port/path?key=value&key=value`
 
-
-
 ---
 
 ## ◆ Sending and Retrieving from data
@@ -494,8 +456,6 @@
 - 데이터 가져오기(검색하기)
 
 - 서버는 클라이언트로 받은 key-value 쌍의 목록과 같은 데이터를 받게됨
-
-
 
 ```python
 def catch(request):
@@ -507,8 +467,6 @@ def catch(request):
     }
     return render(request, 'catch.html', context)
 ```
-
-
 
 ```html
 {% extends 'base.html' %}
@@ -523,10 +481,6 @@ def catch(request):
 
 {% endblock content %}
 ```
-
-
-
-
 
 ---
 
@@ -562,8 +516,6 @@ def catch(request):
   
   5. path
 
-
-
 ---
 
 ## ◆ App URL mapping
@@ -582,10 +534,6 @@ def catch(request):
 
 - 함수 include()를 만나게 되면 URL의 그 시점까지 일치하는 부분을 잘라내고, 남은 문자열 부분을 후속 처리를 위해 include된 URLconf로 전달
 
-
-
-
-
 ---
 
 ## ◆ Naming URL patterns
@@ -598,8 +546,6 @@ DTL의 Tag 중 하나인 URL 태그를 사용해서 "path()" 함수에 작성한
 
 Django는 URL에 이름을 지정하는 방법을 제공함으로써 view 함수와 템플릿에서 특정 주소를 쉽게 참조할 수 있도록 도움
 
-
-
 #### ▶ Built-in tag - "url"
 
 - `{% url '' %}`
@@ -608,8 +554,6 @@ Django는 URL에 이름을 지정하는 방법을 제공함으로써 view 함수
 
 - 템플릿에 URL을 하드 코딩하지 않고도 DRY 원칙을 위반하지 않으면서 링크를 출력하는 방법
 
-
-
 #### ▶ DRY 원칙(Don't Repeat Yourself)
 
 - **소스 코드에서 동일한 코드를 반복하지 말자**
@@ -617,8 +561,6 @@ Django는 URL에 이름을 지정하는 방법을 제공함으로써 view 함수
 - 동일한 코드가 반복된다는 것은 잠재적인 버그의 위협을 증가시키고 반복되는 코드를 변경해야 하는 경우, 반복되는 모든 코드를 찾아서 수정해야 함
 
 - 프로젝트 규모가 커질수록 애플리케이션의 유지 보수 비용이 커짐
-
-
 
 ---
 
@@ -667,45 +609,3 @@ Django는 URL에 이름을 지정하는 방법을 제공함으로써 view 함수
   - 양쪽 모두에게 최선의 결과를 준다고 강조
 
 - 생산성에 초점을 둔 프레임워크
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
