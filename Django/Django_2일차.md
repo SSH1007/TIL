@@ -59,6 +59,8 @@
   - 방문할 URL이 속한 앱의 이름을 앞에 적어준다.
   
   - app_name을 지정한 후에는 url 태그에서 반드시 app_name:url_name 형태로만 사용해야 한다. << 그렇지 않으면 NoReverceMatch 에러 발생
+  
+  - **URL 참조는 ':' 연산자를 사용해서 지정**
 
 \_
 
@@ -164,7 +166,7 @@
   
   - 'DB 필드의 이름' = '클래스 변수 값(DB 필드의 데이터 타입)'
   
-  - id 컬럼은 테이블 생성 시 Django가 자동으로 생성
+  - **id 컬럼은 테이블 생성 시 Django가 자동으로 생성**
 
 - 각 모델은 django.models.Model 클래스의 서브 클래스로 표현됨
   
@@ -297,15 +299,459 @@
 
 ## ◆ Queryset API
 
+:star: **QuerySet과 상호작용하기 위해 사용하는 도구(메서드, 연산자 등)** :star:
+
+- 실습 편의를 위한 추가 라이브러리 설치 및 설정
+  
+  - `pip install ipython` : 좀 더 이쁜 인터프리터(대화형 shell) 설치
+  
+  - `pip install django-extensions` : 장고 확장 프로그램 모음.   
+    **설치 후 settings.py의 INSTALLED_APPS에 추가**  
+    shell_plus, graph model 등 다양한 확장 기능 제공  
+    
+    `python manage.py shell_plus`로 실행
+
+### ◈ Database API
+
+- Django가 기본적으로 ORM을 제공함에 따른 것으로 DB를 편하게 조작할 수 있도록 도움
+
+- Model을 만들면 Django는 객체들을 만들고 읽고 수정하고 지울 수 있는 DB API를 자동으로 만듦
+
+### ◈ Database API 구문 및 구조
+
+**`Article`.`Objects`.`all`** 이란 구문은 **모델 클래스.매니저.쿼리셋 API** 구조이다.
+
+- Objects (manager)
+  
+  - Django 모델이 데이터베이스 쿼리 작업을 가능하게 하는 인터페이스
+  
+  - Django는 기본적으로 모든 Django 모델 클래스에 대해 objects라는 Manager 객체를 자동으로 추가함
+  
+  - 이 objects(Manager)를 통해 특정 데이터를 조작(메서드)할 수 있음
+  
+  - `DB를 Python class로 조작할 수 있도록 여러 메서드를 제공하는 Manager`
+
+- Query
+  
+  - 데이터베이스에 특정한 데이터를 보여달라는 요청
+  
+  - "쿼리문을 작성한다"
+    
+    - = 원하는 데이터를 얻기 위해 데이터베이스에 요청을 보낼 코드를 작성한다.
+  
+  - 이 때, 파이썬으로 작성한 코드가 ORM에 의해 SQL로 변환되어 데이터베이스에 전달되며, 데이터베이스의 응답 데이터를 ORM이 QuerySet이라는 자료 형태로 변환하여 우리에게 전달
+
+- QuerySet
+  
+  - 데이터베이스에게서 전달받은 객체 목록(데이터 모음)
+    
+    - 순회가 가능한 데이터로써 1개 이상의 데이터를 불러와 사용할 수 있음
+  
+  - Django ORM을 통해 만들어진 자료형이며, 필터를 걸거나 정렬 등을 수행 가능
+  
+  - "objects" manager를 사용하여 복수의 데이터를 가져오는 queryset Method를 사용할 때 반환되는 객체
+  
+  - 단, 데이터베이스가 단일한 객체를 반환할 때는 QuerySet이 아닌 모델(Class)의 인스턴스로 반환됨
+
+### ◈ QuerySet API CRUD
+
+Create(생성) / Read(조회) / Update(수정) / Delete(삭제)
+
+= 대부분의 컴퓨터 소프트웨어가 가지는 기본적인 데이터 처리기능 4가지
+
+- #### **Create**
+  
+  1. 첫번째 방법
+     
+     - `article = Article()` : 클래스를 통한 인스턴스 생성
+     
+     - `article.인스턴스 변수 = 값` : 클래스 변수명과 같은 이름의 인스턴스 변수를 생성 후 값 할당
+     
+     - `article.save()` : 인스턴스로 save 메서드 호출(DB에 값 적용)
+  
+  2. 두번째 방법 : 인스턴스 생성 시 초기값을 함께 작성하여 생성
+     
+     - `article = Article(title = 'second', content = 'django!')`
+     
+     - `article.save()`
+     
+     - **1번보단 짧고, 3번과는 달리 저장 전 검증이 가능하므로 추천됨**
+  
+  3. 세번째 방법 : QuertSet API - create() 메서드 활용
+     
+     - `Article.objects.create(title='third', content='django!')`
+     
+     - 위 2가지 방식과는 다르게 바로 생성된 데이터가 반환됨
+  - **`.save()`**
+    
+    - 객체를 데이터베이스에 저장
+    
+    - 데이터 생성 시 save를 호출하기 전에는 객체의 id 값은 None
+      
+      - id 값은 Django가 아니라 데이터베이스에서 계산되기 때문
+    
+    - 단순히 모델 클래스를 통해 인스턴스를 생성하는 것은 DB에 영향을 주기 때문에 반드시 save를 호출해야 테이블에 레코드가 생성됨
+  
+  - :star2:vscode 확장 프로그램 **SQLite**로 직접 테이블 데이터 확인 :star2:
+    
+    - vscode에 SQLite 설치
+    
+    - db 우클릭하여 Open Database 선택
+    
+    - 좌측 하단 SQLITE EXPLORE 확인
+    
+    - 테이블 선택 후 show table 버튼 클릭 (▶) 
+
+- #### **Read**
+  
+  - QuerySet API method를 사용해 데이터를 다양하게 조회하기
+    
+    - Quertset을 반환하는 메서드와 그렇지 않은 메서드가 있음
+  
+  - **`all()`**
+    
+    - 클래스명.objects.all() : 전체 데이터를 조회하여 반환
+  
+  - **`get()`**
+    
+    - 클래스명.objects.get(pk와 같은 고유한 인스턴스 변수 = 값)
+      
+      - 단일 데이터 조회하여 반환
+    
+    - 객체를 찾을 수 없으면 DoesNotExist 예외 발생,   
+      둘 이상의 객체를 찾으면 MultipleObjectsReturned 예외 발생
+    
+    - 따라서 pk와 같은 고유성(uniqueness)를 보장하는 조회에서 사용해야 함
+  
+  - **`filter()`**
+    
+    - 클래스명.objects.filter(조회매개 인스턴스변수 = 값 )
+      
+      - 지정된 조회 매개 변수와 일치하는 객체를 포함하는 새 QuerySet을 반환
+      
+      - 조회된 객체가 없거나 1개여도 QuerySet을 반환
+  
+  - **Filed lookups**
+    
+    - 특정 레코드에 대한 조건을 설정하는 방법
+    
+    - filter(), exclude(), get()에 대한 키워드
+    
+    ```django
+    # content 컬럼에 'dj'가 포함된 모든 데이터 조회
+    Article.objects.filter(content__contains='dj')
+    ```
+
+- #### **Update**
+  
+  - 수정하고자 하는 인스턴스 객체를 조회 후 반환 값을 저장
+  
+  - 인스턴스 객체의 인스턴스 변수 값을 새로운 값으로 할당
+  
+  - save() 인스턴스 메서드 호출
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-02-02-image.png)
+
+- #### **Delete**
+  
+  - 삭제하고자 하는 인스턴스 객체를 조회 후 반환 값을저장
+  
+  - delete() 인스턴스 메서드 호출
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-03-56-image.png)
+
+### ※ 참고 : \_\_str__()
+
+- 오브젝트를 정의한 models.py에 표준 파이썬 클래스의 메서드인 str()을 정의하여,  
+  각각의 object가 사람이 읽을 수 있는 문자열을 반환하도록 할 수 있음
+
+```python
+def __str__(self):
+    return self.title
+```
+
+- 정의 후 반드시 shell을 재시작해야 반영이 된다.
+
 ---
 
 ## ◆ CRUD with view funcions
 
-120p
+#### 사전 준비
+
+- bootstrap CDN 및 템플릿 추가 경로 작성
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-08-46-image.png)
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-08-55-image.png)
+
+- URL 분리 및 연결
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-09-10-image.png)
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-09-19-image.png)
+
+- index 페이지(조회 담당) 작성
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-09-46-image.png)
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-09-53-image.png)
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-10-00-image.png)
+
+- ### READ 1(index page)
+  
+  - 전체 게시글 조회 / 출력
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-26-35-image.png)
+
+![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-26-46-image.png)
+
+- ### Create
+  
+  - **사용자의 입력을 받을 페이지를 렌더링하는 함수 1개(=new)**
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-28-07-image.png)
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-28-23-image.png)
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-28-33-image.png)
+  
+  ↓ 메인페이지에서 new 페이지로 이동할 수 있도록 하이퍼 링크 작성
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-28-55-image.png)
+
+- **사용자가 입력한 데이터를 전송받아 DB에 저장하는 함수 1개(=create)**
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-30-49-image.png)
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-15-20-30-image.png)
+  
+  - 게시글 작성 후 확인하기 위해 create.html 페이지를 생성하고, 위에 생성해둔 new.html을 수정한다.
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-15-22-19-image.png)
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-15-22-34-image.png)
+  
+  - 이 경우, 2가지 문제점이 발생한다.
+    
+    1. 게시글 작성 후 index 페이지가 출력되지만 게시글은 조회되지 않는다.
+       
+       - create 함수에서 index.html 문서를 렌더링할 때 context 데이터와 함께 렌더링 하지 않았기 때문
+       
+       - index 페이지 url로 다시 요청을 보내면 정상적으로 출력됨
+    
+    2- 게시글 작성 후 URL은 여전히 create에 머물러 있음
+    
+    - index view 함수를 통해 렌더링 된 것이 아니기 때문
+    
+    - index view 함수의 반환 값이 아닌 단순히 index 페이지만 render 되었을 뿐
+      
+      **이를 해결하기 위해 `redirect`를 사용한다**
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-31-52-image.png)
+  
+  - Redirect : 인자에 작성된 곳으로 요청을 보냄  
+    `return redirect('/articles/')` : 절대 or 상대 URL  
+    `return redirect('articles:index')` : view 이름(URL 패턴 이름)
+  
+  - 이 경우, index.html로 바로 직행하므로, create.html은 삭제해도 된다.
+  
+  - redirect 동작 원리
+    
+    ```
+    1. 클라이언트가 create URL로 요청을 보냄
+    2. create view 함수의 redirect 함수가 302 status code를 응답
+    3. 응답 받은 브라우저는 redirect 인자에 담긴 주소(index)로 
+       사용자를 이동시키기 위해 index url로 Django에 재요청
+    4. index page를 정상적으로 응답받음(200 status code)
+    ```
+
+- HTTP response status code
+  
+  - 클라이언트에게 특정 HTTP 요청이 성공적으로 완료되었는지 여부를 전달
+    
+    1. Informational responses (1xx)
+    
+    2. Successful responses (2xx)
+    
+    3. Redirection messages (3xx)
+    
+    4. Client error responses (4xx)
+    
+    5. Server error responses (5xx)
+  
+  - 302 Found : 브라우저가 사용자를 해당 URL 페이지로 이동시켰다는 상태 코드(HTTP response status code)
+  
+  - 403 Forbidden
+    
+    - 서버에 요청이 전달되었지만, 권한 때문에 거절되었다는 것을 의미
+    
+    - 게시글을 작성할 권한이 없다.
+    
+    - 모델(DB)을 조작하는데에는 최소한의 신원확인이 필요
+
+- HTTP method GET과 POST 재검토
+  
+  - **`GET`**
+    
+    - 쿼리 스트링  파라미터로 데이터를 보내기 때문에 url을 통해 데이터를 보냄
+    
+    - 특정 리소스를 가져오도록 요청할 때 사용(데이터를 가져올 때)
+    
+    - DB에 변화를 주지 않음.  CRUD에서 R 역할을 담당(검색)
+    
+    - 특정 페이지를 조회하는 a tag도 GET 사용
+  
+  - **`POST`**
+    
+    - URL이 아니라 데이터를 HTTP body에 담아 전송함
+    
+    - 서버로 데이터를 전송할 때 사용
+    
+    - DB에 변경사항을 만듦.  CRUD에서 C/U/D 역할을 담당
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-15-55-09-image.png)
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-15-55-28-image.png)
+
+- 위에 작성한 new.html과 views.py를 마저 수정해준다.
+  
+  ### ▣ CSRF(Cross-site-Request-Forgery)
+
+- 사이트 간 요청 위조
+
+- 사용자가 자신의 의지와 무관하게 공격자가 의도한 행동을 하여 특정 웹페이지를 보안에 취약하게 하거나 수정, 삭제 등의 작업을 하게 만드는 공격 방식
+
+- 이를 막기 위한 것이 바로 **CSRF Token**
+  
+  - 사용자의 데이터에 임의의 난수 값(token)을 부여해 매 요청마다 해당 난수 값을 포함시켜 전송 시키도록 함
+  
+  - 이후 서버에서 요청을 받을 때마다 전달된 token 값이 유효한지 검증
+  
+  - 일반적으로 데이터 변경이 가능한 POST, PATCH, DELETE 메소드에서 사용
+  
+  - Django는 DTL에서 csrf_token 템플릿 태그`{% csrf_token %}`를 제공
+    
+    - 해당 태그가 없으면 Django 서버는 요청에 403 forbidden으로 응답
+    
+    - 내부가 아니라 외부 URL로 향하는 POST form에 쓰면 csrf 토큰이 유출될 위험이 있으므로 주의
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-01-37-image.png)
+    
+    - 위에 수정한 new.html에 csrf_토큰 추가
+
+---
+
+- ### READ 2(detail page)
+  
+  - 개별 게시글 상세 페이지 제작
+  
+  - 모든 게시글마다 뷰 함수와 템플릿 파일을 만들 수는 없으므로,  
+    글의 번호(pk)를 활용해서 하나의 뷰 함수와 템플릿 파일로 대응
+  
+  - URL로 특정 게시글을 조회할 수 있는 번호를 받음
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-10-40-image.png)
+  
+  - Article.objects.get(pk=pk)에서 오른쪽 pk는 variable routing을 통해 받은 pk, 왼쪽 pk는 DB에 저장된 레코드의 id 컬럼
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-11-33-image.png)
+  
+  - 템플릿 - 메인 페이지와 개별 페이지
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-12-10-image.png)
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-12-18-image.png)
+  
+  - views.py의 create 함수의 리다이렉트 대상 인자의 주소를 pk로 변경
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-13-10-image.png)
+
+- ### DELETE
+  
+  - 모든 글을 삭제하는 것이 아니라 삭제하고자 하는 특정 글을 조회 후 삭제해야 함
+  
+  - delete 함수
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-19-20-image.png)
+  
+  - 개별(detail) 페이지에 넣을 delete 버튼 : DB에 영향을 미치므로 POST
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-20-13-image.png)
+
+- ### UPDATE
+  
+  - CREATE와 마찬가지로 두 개의 views 함수가 필요
+    
+    - 사용자의 입력을 받을 페이지를 렌더링하는 함수(edit)
+    
+    - 사용자가 입력한 데이터를 전송받아 DB에 저장하는 함수(update)
+  
+  - **Edit - urls & views & templates**
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-23-12-image.png)
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-23-29-image.png)
+    
+    ↓ 수정하는 페이지
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-24-05-image.png)
+    
+    - html 태그의 value속성을 사용해 기존에 입력되어 있던 데이터를 출력(기본값)
+    
+    - textarea 태그는 value 속성이 없으므로 태그 내부 값으로 작성
+    
+    ↓ 개별(detail) 페이지
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-26-14-image.png)
+    
+    - 개별 페이지에서 Edit 페이지로 이동하기 위한 하이퍼 링크 작성
+  
+  - **update**
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-27-08-image.png)
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-27-22-image.png)
+    
+    ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-16-27-30-image.png)
+    
+    - 수정 뒤 업데이트 페이지로 이동하여 views.update 함수를 동작하도록 수정
 
 ---
 
 ## ◆ Admin site
+
+- Django의 가장 강력한 기능 중 하나인 automatic admin interface
+
+- 관리자 페이지
+  
+  - 사용자가 아닌 서버의 관리자가 활용하기 위한 페이지
+  
+  - 모델 클래스를 admin.py에 등록하고 관리
+  
+  - 레코드 생성 여부 확인에 매우 유용하며, 직접 레코드를 삽입할 수 있음
+
+- admin 계정 생성
+  
+  - `python manage.py createsuperuser`
+  
+  - username과 password를 입력해 관리자 계정 생성
+    
+    - email은 선택사항(무시 가능)
+    
+    - 비밀번호는 안보이는게 정상이니 계속 적으면 됨
+
+- http://127.0.0.1:8000/admin/로 접속 후 로그인
+  
+  - 계정만 만든 경우, Django 관리자 화면에 모델 클래스는 보이지 않음
+
+- admin.py에 모델 클래스 등록
+  
+  ![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-17-08-56-image.png)
+
+---
+
+---
 
 DB 삭제
 서버 끄고
