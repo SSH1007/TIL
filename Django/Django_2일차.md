@@ -450,7 +450,7 @@ Create(생성) / Read(조회) / Update(수정) / Delete(삭제)
   
   - save() 인스턴스 메서드 호출
 
-![](Django_2일차_assets\2022-09-04-12-02-02-image.png)
+![](Django_2일차_assets/2022-09-04-12-02-02-image.png)
 
 - #### **Delete**
   
@@ -458,7 +458,7 @@ Create(생성) / Read(조회) / Update(수정) / Delete(삭제)
   
   - delete() 인스턴스 메서드 호출
 
-![](C:\Users\user\AppData\Roaming\marktext\images\2022-09-04-12-03-56-image.png)
+![](Django_2일차_assets/2022-09-04-12-03-56-image.png)
 
 ### ※ 참고 : \_\_str__()
 
@@ -480,57 +480,57 @@ def __str__(self):
 
 - bootstrap CDN 및 템플릿 추가 경로 작성
 
-![](Django_2일차_assets\2022-09-04-12-08-46-image.png)
+![](Django_2일차_assets/2022-09-04-12-08-46-image.png)
 
-![](Django_2일차_assets\2022-09-04-12-08-55-image.png)
+![](Django_2일차_assets/2022-09-04-12-08-55-image.png)
 
 - URL 분리 및 연결
 
-![](Django_2일차_assets\2022-09-04-12-09-10-image.png)
+![](Django_2일차_assets/2022-09-04-12-09-10-image.png)
 
-![](Django_2일차_assets\2022-09-04-12-09-19-image.png)
+![](Django_2일차_assets/2022-09-04-12-09-19-image.png)
 
 - index 페이지(조회 담당) 작성
 
-![](Django_2일차_assets\2022-09-04-12-09-46-image.png)
+![](Django_2일차_assets/2022-09-04-12-09-46-image.png)
 
-![](Django_2일차_assets\2022-09-04-12-09-53-image.png)
+![](Django_2일차_assets/2022-09-04-12-09-53-image.png)
 
-![](Django_2일차_assets\2022-09-04-12-10-00-image.png)
+![](Django_2일차_assets/2022-09-04-12-10-00-image.png)
 
 - ### READ 1(index page)
   
   - 전체 게시글 조회 / 출력
 
-![](Django_2일차_assets\2022-09-04-12-26-35-image.png)
+![](Django_2일차_assets/2022-09-04-12-26-35-image.png)
 
-![](Django_2일차_assets\2022-09-04-12-26-46-image.png)
+![](Django_2일차_assets/2022-09-04-12-26-46-image.png)
 
 - ### Create
   
   - **사용자의 입력을 받을 페이지를 렌더링하는 함수 1개(=new)**
   
-  ![](Django_2일차_assets\2022-09-04-12-28-07-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-28-07-image.png)
   
-  ![](Django_2일차_assets\2022-09-04-12-28-23-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-28-23-image.png)
   
-  ![](Django_2일차_assets\2022-09-04-12-28-33-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-28-33-image.png)
   
   ↓ 메인페이지에서 new 페이지로 이동할 수 있도록 하이퍼 링크 작성
   
-  ![](Django_2일차_assets\2022-09-04-12-28-55-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-28-55-image.png)
 
 - **사용자가 입력한 데이터를 전송받아 DB에 저장하는 함수 1개(=create)**
   
-  ![](Django_2일차_assets\2022-09-04-12-30-49-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-30-49-image.png)
   
-  ![](Django_2일차_assets\2022-09-04-15-20-30-image.png)
+  ![](Django_2일차_assets/2022-09-04-15-20-30-image.png)
   
   - 게시글 작성 후 확인하기 위해 create.html 페이지를 생성하고, 위에 생성해둔 new.html을 수정한다.
     
-    ![](Django_2일차_assets\2022-09-04-15-22-19-image.png)
+    ![](Django_2일차_assets/2022-09-04-15-22-19-image.png)
     
-    ![](Django_2일차_assets\2022-09-04-15-22-34-image.png)
+    ![](Django_2일차_assets/2022-09-04-15-22-34-image.png)
   
   - 이 경우, 2가지 문제점이 발생한다.
     
@@ -548,7 +548,7 @@ def __str__(self):
       
       **이를 해결하기 위해 `redirect`를 사용한다**
   
-  ![](Django_2일차_assets\2022-09-04-12-31-52-image.png)
+  ![](Django_2일차_assets/2022-09-04-12-31-52-image.png)
   
   - Redirect : 인자에 작성된 곳으로 요청을 보냄  
     `return redirect('/articles/')` : 절대 or 상대 URL  
@@ -610,9 +610,9 @@ def __str__(self):
     
     - DB에 변경사항을 만듦.  CRUD에서 C/U/D 역할을 담당
   
-  ![](Django_2일차_assets\2022-09-04-15-55-09-image.png)
+  ![](Django_2일차_assets/2022-09-04-15-55-09-image.png)
   
-  ![](Django_2일차_assets\2022-09-04-15-55-28-image.png)
+  ![](Django_2일차_assets/2022-09-04-15-55-28-image.png)
 
 - 위에 작성한 new.html과 views.py를 마저 수정해준다.
   
@@ -636,7 +636,7 @@ def __str__(self):
     
     - 내부가 아니라 외부 URL로 향하는 POST form에 쓰면 csrf 토큰이 유출될 위험이 있으므로 주의
     
-    ![](Django_2일차_assets\2022-09-04-16-01-37-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-01-37-image.png)
     
     - 위에 수정한 new.html에 csrf_토큰 추가
 
@@ -651,21 +651,21 @@ def __str__(self):
   
   - URL로 특정 게시글을 조회할 수 있는 번호를 받음
     
-    ![](Django_2일차_assets\2022-09-04-16-10-40-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-10-40-image.png)
   
   - Article.objects.get(pk=pk)에서 오른쪽 pk는 variable routing을 통해 받은 pk, 왼쪽 pk는 DB에 저장된 레코드의 id 컬럼
     
-    ![](Django_2일차_assets\2022-09-04-16-11-33-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-11-33-image.png)
   
   - 템플릿 - 메인 페이지와 개별 페이지
     
-    ![](Django_2일차_assets\2022-09-04-16-12-10-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-12-10-image.png)
     
-    ![](Django_2일차_assets\2022-09-04-16-12-18-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-12-18-image.png)
   
   - views.py의 create 함수의 리다이렉트 대상 인자의 주소를 pk로 변경
     
-    ![](Django_2일차_assets\2022-09-04-16-13-10-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-13-10-image.png)
 
 - ### DELETE
   
@@ -673,11 +673,11 @@ def __str__(self):
   
   - delete 함수
     
-    ![](Django_2일차_assets\2022-09-04-16-19-20-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-19-20-image.png)
   
   - 개별(detail) 페이지에 넣을 delete 버튼 : DB에 영향을 미치므로 POST
     
-    ![](Django_2일차_assets\2022-09-04-16-20-13-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-20-13-image.png)
 
 - ### UPDATE
   
@@ -689,13 +689,13 @@ def __str__(self):
   
   - **Edit - urls & views & templates**
     
-    ![](Django_2일차_assets\2022-09-04-16-23-12-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-23-12-image.png)
     
-    ![](Django_2일차_assets\2022-09-04-16-23-29-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-23-29-image.png)
     
     ↓ 수정하는 페이지
     
-    ![](Django_2일차_assets\2022-09-04-16-24-05-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-24-05-image.png)
     
     - html 태그의 value속성을 사용해 기존에 입력되어 있던 데이터를 출력(기본값)
     
@@ -703,17 +703,17 @@ def __str__(self):
     
     ↓ 개별(detail) 페이지
     
-    ![](Django_2일차_assets\2022-09-04-16-26-14-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-26-14-image.png)
     
     - 개별 페이지에서 Edit 페이지로 이동하기 위한 하이퍼 링크 작성
   
   - **update**
     
-    ![](Django_2일차_assets\2022-09-04-16-27-08-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-27-08-image.png)
     
-    ![](Django_2일차_assets\2022-09-04-16-27-22-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-27-22-image.png)
     
-    ![](Django_2일차_assets\2022-09-04-16-27-30-image.png)
+    ![](Django_2일차_assets/2022-09-04-16-27-30-image.png)
     
     - 수정 뒤 업데이트 페이지로 이동하여 views.update 함수를 동작하도록 수정
 
@@ -747,22 +747,22 @@ def __str__(self):
 
 - admin.py에 모델 클래스 등록
   
-  ![](Django_2일차_assets\2022-09-04-17-08-56-image.png)
+  ![](Django_2일차_assets/2022-09-04-17-08-56-image.png)
 
 ---
 
 ---
 
-DB 삭제~~~~
-서버 끄고
-db.sqlite3 삭제
-migrations 폴더에서 000*들 지워준다.
+DB 삭제
+서버 끄고  
+db.sqlite3 삭제  
+migrations 폴더에서 000*들 지워준다.   
 
-DB 삭제하면
-python manage.py makemigration
-python manage.py migrate
+DB 삭제하면  
+python manage.py makemigration  
+python manage.py migrate  
 
-python manage.py createsuperuser
-아이디
-비번(안보이는게 정상)
-bypass : y하고 넘겨도 무방
+python manage.py createsuperuser  
+아이디  
+비번(안보이는게 정상)  
+bypass : y하고 넘겨도 무방  
