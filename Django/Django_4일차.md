@@ -54,8 +54,6 @@
   
   ![](Django_4일차_assets/2022-09-07-18-08-55-image.png)
 
-
-
 ---
 
 # ◆ Substituting a custom User model
@@ -205,6 +203,7 @@
    - 네이버 서버는 우리에게 메인 페이지를 응답하고 연결을 끊은 것
 
 2. 무상태(Stateless)
+   
    - 연결을 끊는 순간 클라이언트와 서버간의 통신이 끝나며 상태 정보가 유지되지 않음
    
    - 클라이언트와 서버가 주고 받는 메시지들은 서로 완전히 독립적
@@ -752,8 +751,8 @@ def save(self, commit=True):
   - AnonymousUser에 대해서는 항상 False.
 
 - 일반적으로 **request.user**에서 이 속성을 사용(request.user.is_authenticated)
-
- ※ 권한(Permission)과는 관련이 없으며, 사용자가 활성화 상태(active)이거나 유효한 세션(valid session)을 가지고 있는지도 확인하지 않음
+  
+  ※ 권한(Permission)과는 관련이 없으며, 사용자가 활성화 상태(active)이거나 유효한 세션(valid session)을 가지고 있는지도 확인하지 않음
 
 ## | [참고] is_authenticated 코드 살펴보기
 
@@ -829,7 +828,7 @@ def save(self, commit=True):
 
 1. 먼저 비로그인 상태로 detail 페이지에서 게시글 삭제 시도
 
-2.  delete view 함수의 @login_required로 인해 로그인 페이지로 리다이렉트
+2. delete view 함수의 @login_required로 인해 로그인 페이지로 리다이렉트
    
    - 예) http://127.0.0.1:8000/accounts/login/?next=/articles/1/delete/
 
@@ -857,5 +856,3 @@ def save(self, commit=True):
 ## | accounts/views.py의 모든 함수들에 데코레이터 및 속성 값 적용
 
 ![](Django_4일차_assets/2022-09-07-23-43-54-image.png)
-
-
