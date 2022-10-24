@@ -105,7 +105,7 @@
 
 - 경고 대화 상자 표시
   
-  ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-10-24-11-22-42-image.png)
+  ![](JavaScript(DOM,Event,this)_20221024_assets/175431ae6d77ad1d3072ee1f288882d2d5ae2500.png)
 
 ## | **`document`** object
 
