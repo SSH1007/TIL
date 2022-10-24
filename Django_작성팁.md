@@ -17,5 +17,3 @@
   ```
   
   - Django에선 **|** 로 Built-in tag를 적용해준다.
-
-

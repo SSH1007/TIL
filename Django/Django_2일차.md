@@ -36,19 +36,23 @@
 
 1. articles app index 페이지에 작성한 두번째 앱 index로 이동하는 하이퍼 링크를 클릭 시 현재 페이지로 다시 이동
    
+   - url은 127.0.0.1:8000/pages/index/로 바뀌긴 함
+   
    - URL namespace : ①, ④
 
 2. pages app의 index url `(http://127.0.0.1:8000/pages/index/)`로 직접 이동해도 articles app의 index 페이지가 출력됨
    
    - Template namespace : ②, ③
 
-\_
+---
 
-#### ◆ URL namespace
+# ◆ URL namespace
+
+## | 개요
 
 - URL namespace를 사용하면 서로 다른 앱에서 동일한 URL 이름을 사용하는 경우에도 이름이 지정된 URL을 고유하게 사용할 수 있음
 
-- app_name =  attribute를 작성해 URL namespace를 설정  **(①)**
+- **app_name** attribute를 작성해 URL namespace를 설정  **(①)**
 
 ![](Django_2일차_assets/2022-09-01-12-29-12-image.png)
 
@@ -61,16 +65,22 @@
   - app_name을 지정한 후에는 url 태그에서 반드시 app_name:url_name 형태로만 사용해야 한다. << 그렇지 않으면 NoReverceMatch 에러 발생
   
   - **URL 참조는 ':' 연산자를 사용해서 지정**
+    
+    - 예) **app_name**이 articles이고 **URL name**이 index인 주소 참조는 articles:index가 된다.
 
-\_
+---
 
-#### ◆ Template namespace
+# ◆ Template namespace
 
-- Django는 기본적으로 app_name/templates/ 경로에 있는 templates 파일들만 찾을 수 있으며, settings.py의 INSTALLED_APPS에 작성한 app 순서대로 template을 검색 후 렌더링 함.
+## | 개요
 
-- 디렉토리 생성을 통해 물리적인 이름공간 구분
+- Django는 기본적으로 `app_name/templates/` 경로에 있는 templates 파일들만 찾을 수 있으며, settings.py의 INSTALLED_APPS에 작성한 app 순서대로 template을 검색 후 렌더링 함.
   
-  - Django templates의 기본 경로에 app과 같은 이름의 폴더를 생성해 폴더 구조를  
+  - settings.py 안의 Templates의 `'APP_DIRS' : True,` 속성이 해당 경로를 활성화함
+
+## | 디렉토리 생성을 통해 물리적인 이름공간 구분
+
+- - Django templates의 기본 경로에 app과 같은 이름의 폴더를 생성해 폴더 구조를  
     `app_name/templates/app_name/` 형태로 변경
   
   - Django templates의 기본 경로 자체를 변경할 수는 없기 때문에 물리적으로 이름 공간을 만드는 것
@@ -138,7 +148,7 @@
      
      - Query를 날린다 > 데이터베이스를 조작한다.
 
-\_
+---
 
 #### ◈ Model
 
@@ -172,7 +182,7 @@
   
   - 즉, 각 모델은 django.db.models 모듈의 Model 클래스를 상속받아 구성됨
   
-  - 클래스 상속 기반 형태의 Django 프레임워크 개발
+  - **`클래스 상속 기반 형태의 Django 프레임워크 개발`**
     
     - 프레임워크에서는 잘 만들어진 도구를 가져다가 잘 쓰는 것
   
@@ -193,10 +203,12 @@
   - TextField(\*\*options)
     
     - 글자의 수가 많을 때 사용
+    - max_length 옵션 작성 시 사용자 입력 단계에서는 반영되지만, 모델과 데이터베이스 단계에는 적용되지 않음(CharField를 사용해야 함)
+      - 실제로 저장될 때 길이에 대한 유효성을 검증하지 않음
 
-\_
+---
 
-#### ◈ Migrations
+# ◆ Migrations
 
 - 모델에 대한 청사진을 만들고 이를 통해 테이블을 생성하는 일련의 과정
 
@@ -214,17 +226,17 @@
      
      - makemigrations로 생성한 설계도를 실제 db.sqlite3 DB에 반영
      
-     - 모델과 DB의 동기화
+     - **`모델`** 에서의 변경사항들과 **`DB`** 의 스키마의 **`동기화`**
 
 - 기타 명령어
   
-  1. python manage.py showmigrations
+  1. python manage.py **showmigrations**
      
      - migrations 파일들이 migrate 되었는지 여부 확인 : ([X] = 완료됨)
   
-  2- python manage.py sqlmigrate articles 0001
-  
-  - 0001 migrations 파일이 SQL 문으로 어덯게 해석되는지 미리 확인
+  2. python manage.py **sqlmigrate** articles 0001
+     
+     - 0001 migrations 파일이 SQL 문으로 어떻게 해석되는지 미리 확인
 
 - 설계도를 해석하여 DB의 동기화를 해주는 것이 ORM
 
@@ -306,18 +318,32 @@
   - `pip install ipython` : 좀 더 이쁜 인터프리터(대화형 shell) 설치
   
   - `pip install django-extensions` : 장고 확장 프로그램 모음.   
-    **설치 후 settings.py의 INSTALLED_APPS에 추가**  
+    **설치 후 settings.py의 INSTALLED_APPS에 'django_extensions' 추가**  
     shell_plus, graph model 등 다양한 확장 기능 제공  
     
     `python manage.py shell_plus`로 실행
 
-### ◈ Database API
+## | [참고] Shell
+
+- 운영체제 상에서 다양한 기능과 서비스를 구현하는 인터페이스를 제공하는 프로그램
+
+- Shell(껍데기)은 사용자와 운영 체제의 내부 사이의 인터페이스를 감싸는 층이기 때문에 그러한 이름이 붙음
+
+- "사용자 ↔ 셸 ↔ 운영체제"
+
+- Python Shell은 파이썬 코드를 실행해주는 인터프리터, 대화형 Shell
+
+---
+
+# ◆ QuerySet API
+
+## | Database API
 
 - Django가 기본적으로 ORM을 제공함에 따른 것으로 DB를 편하게 조작할 수 있도록 도움
 
 - Model을 만들면 Django는 객체들을 만들고 읽고 수정하고 지울 수 있는 DB API를 자동으로 만듦
 
-### ◈ Database API 구문 및 구조
+## | Database API 구문 및 구조
 
 **`Article`.`Objects`.`all`** 이란 구문은 **모델 클래스.매니저.쿼리셋 API** 구조이다.
 
@@ -339,7 +365,7 @@
     
     - = 원하는 데이터를 얻기 위해 데이터베이스에 요청을 보낼 코드를 작성한다.
   
-  - 이 때, 파이썬으로 작성한 코드가 ORM에 의해 SQL로 변환되어 데이터베이스에 전달되며, 데이터베이스의 응답 데이터를 ORM이 QuerySet이라는 자료 형태로 변환하여 우리에게 전달
+  - 이 때, 파이썬으로 작성한 코드가 ORM에 의해 SQL로 변환되어 데이터베이스에 전달되며, 데이터베이스의 응답 데이터를 ORM이 `QuerySet`이라는 자료 형태로 변환하여 우리에게 전달
 
 - QuerySet
   
@@ -353,7 +379,9 @@
   
   - 단, 데이터베이스가 단일한 객체를 반환할 때는 QuerySet이 아닌 모델(Class)의 인스턴스로 반환됨
 
-### ◈ QuerySet API CRUD
+---
+
+# ◆ QuerySet API CRUD
 
 Create(생성) / Read(조회) / Update(수정) / Delete(삭제)
 
@@ -363,11 +391,17 @@ Create(생성) / Read(조회) / Update(수정) / Delete(삭제)
   
   1. 첫번째 방법
      
-     - `article = Article()` : 클래스를 통한 인스턴스 생성
+     1. `article = Article()` 
+        
+        - 클래스를 통한 인스턴스 생성
      
-     - `article.인스턴스 변수 = 값` : 클래스 변수명과 같은 이름의 인스턴스 변수를 생성 후 값 할당
+     2. `article.인스턴스 변수 = 값`  
+        
+        - 클래스 변수명과 같은 이름의 인스턴스 변수를 생성 후 값 할당
      
-     - `article.save()` : 인스턴스로 save 메서드 호출(DB에 값 적용)
+     3. `article.save()` 
+        
+        - 인스턴스로 save 메서드 호출(DB에 즉시 값 적용)
   
   2. 두번째 방법 : 인스턴스 생성 시 초기값을 함께 작성하여 생성
      
@@ -526,6 +560,12 @@ def __str__(self):
   
   ![](Django_2일차_assets/2022-09-04-15-20-30-image.png)
   
+  - 2번째 생성 방식을 사용하는 이유 : 
+    
+    - create 메서드가 더 간단하지만 추후 데이터가 저장되기 전에 유효성 검사 과정을  할 수 없다는 단점이 있음
+    
+    - 유효성 검사가 진행된 후에 save 메서드가 호출되는 구조를 택하기 위함
+  
   - 게시글 작성 후 확인하기 위해 create.html 페이지를 생성하고, 위에 생성해둔 new.html을 수정한다.
     
     ![](Django_2일차_assets/2022-09-04-15-22-19-image.png)
@@ -554,7 +594,7 @@ def __str__(self):
     `return redirect('/articles/')` : 절대 or 상대 URL  
     `return redirect('articles:index')` : view 이름(URL 패턴 이름)
   
-  - 이 경우, index.html로 바로 직행하므로, create.html은 삭제해도 된다.
+  - 이 경우, index.html로 바로 직행하므로, 기존의 create.html은 삭제해도 된다.
   
   - redirect 동작 원리
     
@@ -608,6 +648,8 @@ def __str__(self):
     
     - 서버로 데이터를 전송할 때 사용
     
+    - GET의 쿼리 스트링 파라미터와 다르게 URL로 보내지지 않음
+    
     - DB에 변경사항을 만듦.  CRUD에서 C/U/D 역할을 담당
   
   ![](Django_2일차_assets/2022-09-04-15-55-09-image.png)
@@ -618,7 +660,7 @@ def __str__(self):
   
   ### ▣ CSRF(Cross-site-Request-Forgery)
 
-- 사이트 간 요청 위조
+- **"사이트 간 요청 위조"**
 
 - 사용자가 자신의 의지와 무관하게 공격자가 의도한 행동을 하여 특정 웹페이지를 보안에 취약하게 하거나 수정, 삭제 등의 작업을 하게 만드는 공격 방식
 
