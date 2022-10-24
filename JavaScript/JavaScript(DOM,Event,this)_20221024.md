@@ -57,7 +57,7 @@
 
 - DOM 메서드를 사용하면 프로그래밍적으로 트리에 접근할 수 있고 이를 통해 문서의 구조, 스타일, 컨텐츠를 변경할 수 있음
   
-  ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-10-24-11-18-12-image.png)
+  ![](JavaScript(DOM,Event,this)_20221024_assets/9e94a0a00a7fa41ff131e9e7ba63f0960fc78c02.png)
 
 - 웹 페이지는 일종의 문서(document)
 
@@ -91,17 +91,17 @@
 
 - 탭 기능이 있는 브라우저에서는 각각의 탭을 각각의 window 객체로 나타냄
   
-  ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-10-24-11-21-40-image.png)
+  ![](JavaScript(DOM,Event,this)_20221024_assets/3fcfb441c7c6b77e52de68dc7ccc019a13e7ba3d.png)
 
 ## | window의 메서드 예시
 
 - 새 탭 열기
   
-  ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-10-24-11-22-00-image.png)
+  ![](JavaScript(DOM,Event,this)_20221024_assets/df397680cb2573a38240dfd157ea688a8856b17f.png)
 
 - 인쇄 대화 상자 표시
   
-  ![](C:\Users\multicampus\AppData\Roaming\marktext\images\2022-10-24-11-22-18-image.png)
+  ![](JavaScript(DOM,Event,this)_20221024_assets/3d1e4b1d8a1cb2fbb2e01f0ccdafd9ac122e6559.png)
 
 - 경고 대화 상자 표시
   
