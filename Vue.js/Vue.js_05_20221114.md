@@ -404,7 +404,7 @@
 
 - `App` 추가 및 `MIDDLEWARE` 추가 주석 해제
   
-  -  주의) CorsMiddleware는 가능한 CommonMiddleware보다 먼저 정의되어야 함
+  - 주의) CorsMiddleware는 가능한 CommonMiddleware보다 먼저 정의되어야 함
   
   ![](Vue.js_05_20221114_assets/2022-11-14-10-35-22-image.png)
 
@@ -1190,7 +1190,7 @@
   
   <img src="Vue.js_05_20221114_assets/2022-11-14-11-50-21-image.png" title="" alt="" width="392">
   
-  -  token을 저장할 위치 확인
+  - token을 저장할 위치 확인
   
   - mutations를 통해 state 변화
 
@@ -1531,5 +1531,3 @@
   ![](Vue.js_05_20221114_assets/2022-11-14-12-23-23-image.png)
   
   - 정상 작동 확인
-
-
